@@ -55,7 +55,7 @@ func (mr *MongoRepository[T]) FindOne(
 		return err
 	}
 
-	res := mr.GetCollection().FindOne(context.TODO(), bson)
+	res := mr.GetCollection().FindOne(context.TODO(), bson, opts...)
 
 	err = res.Decode(&model)
 
@@ -159,7 +159,7 @@ func (mr *MongoRepository[T]) UpdateMany(
 	update interface{},
 	opts ...*options.UpdateOptions,
 ) (error, int64) {
-	result, err := mr.GetCollection().UpdateMany(context.TODO(), filter, update)
+	result, err := mr.GetCollection().UpdateMany(context.TODO(), filter, update, opts...)
 
 	if err != nil {
 		return err, 0
